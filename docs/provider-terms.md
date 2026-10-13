@@ -1,4 +1,4 @@
-﻿# Provider terms check
+# Provider terms check
 
 Status: open. No adapter is approved by this file yet.
 
@@ -15,6 +15,7 @@ Check each provider before you build its adapter. A model list does not prove ac
 
 1. Record the source URL, the date, and one short verdict for each provider.
 2. Use only a method that the source permits.
-3. Do not scrape, copy, or share subscription tokens.
-4. Do not move a user to a paid API route without clear approval.
-5. If a source gives no clear answer, keep the verdict open. Build that adapter last.
+3. Check each agent CLI license before you bundle the CLI in the VM image. If a license blocks bundling, download that CLI on first use.
+4. Do not scrape, copy, or share subscription tokens.
+5. Do not move a user to a paid API route without clear approval.
+6. If a source gives no clear answer, keep the verdict open. Build that adapter last.

@@ -17,7 +17,9 @@ If proof A fails, the product has no core value. If proof B fails, the product h
 
 ## Budgets
 
-- Runtime image: maximum 500 MB compressed. If a tool breaks the limit, remove the tool. Do not raise the limit without a decision record.
+- Layer 1 core image: maximum 500 MB compressed. If a core tool breaks the limit, remove the tool. Do not raise the limit without a decision record.
+- Layer 1 plus Layer 2: maximum 1.5 GB compressed. Download Layer 2 in the background during sign-in. Do not block the first task on Layer 2.
+- Layer 3 bundles have no fixed limit. Show the download size before you install a bundle.
 - Weak laptop test: 8 GB RAM, 4 CPU cores. The VM must stay usable at that level. Suspend the VM when no task runs.
 - First run: less than 5 minutes from install to the first task prompt. Measure it on the weak laptop test machine.
 
@@ -38,7 +40,7 @@ No code, chat, prompt, or secret leaves the computer by default. Send data only 
 | State store | SQLite on the host | Event log for tasks, runs, scores, and settings scope. Git stays the source of truth for code. |
 | Secrets | `keyring` crate | Windows Credential Manager, macOS Keychain, Linux Secret Service. No secrets in the VM sandbox. |
 | Runtime image | Debian slim OCI image | Build with BuildKit. Sign with cosign. Ship an SBOM from Syft. Update by layers. |
-| Inside the image | Podman rootless, bubblewrap, Git, Node.js LTS, Python, ripgrep | One task gets one sandbox, one worktree, and one copy-on-write overlay. |
+| Inside the image | See the preload layers below | One task gets one sandbox, one private clone, and one copy-on-write overlay. |
 | Windows runtime | WSL2 custom distro | Import the same OCI image as a WSL2 distro. |
 | macOS runtime | libkrun through krunkit | Same image, native hypervisor. |
 | Linux runtime | libkrun with KVM, or native sandbox | Use native mode only when the host already meets the image rules. |
@@ -49,6 +51,71 @@ No code, chat, prompt, or secret leaves the computer by default. Send data only 
 | Tests | cargo test, Vitest, Playwright | Add one VM smoke test for each host OS in CI. |
 | CI and release | GitHub Actions on Windows, macOS, and Ubuntu | Signed installers from Tauri: NSIS, DMG, AppImage. Signed auto-update. |
 | Logs | `tracing` crate, local files | No telemetry by default. Send data only with clear consent. |
+
+## Preload layers
+
+Preload the tools that most developers use. Do not preload every tool in one image. Use three layers.
+
+### Layer 1: Core, always installed
+
+| Group | Preinstall |
+|---|---|
+| Shell and search | bash, zsh, Git, GitHub CLI, ripgrep, fd, jq, yq, fzf, curl, unzip |
+| Editors and view | Neovim, Nano, bat, tree, less |
+| Build base | build-essential, pkg-config, cmake, Python 3, pip, uv |
+| Runtime manager | mise, Node.js LTS, Bun, pnpm, npm, Yarn |
+| More runtimes | Go, Rust with rustup, Deno, OpenJDK |
+| Containers | Podman, bubblewrap, Docker CLI, Docker Compose |
+| Quality | ShellCheck, shfmt, Ruff, Prettier, ESLint |
+| Browser test | Playwright with Chromium |
+| Repo speed | Watchman, Sapling, Buck2 |
+
+Sapling, Watchman, and Buck2 are Meta public tools. Meta internal tools for Muse are not public. Do not promise those tools. These public tools serve the same jobs.
+
+### Layer 2: Agent and startup tools, always installed
+
+Download this layer in the background during sign-in. Do not block the first task on it.
+
+| Group | Preinstall |
+|---|---|
+| Coding agents | Codex CLI, Claude Code CLI, Gemini CLI, Antigravity CLI |
+| Agent help | Aider, OpenCode, Goose, Continue CLI |
+| MCP | MCP Inspector, Filesystem MCP, Git MCP, Playwright MCP |
+| Web deploy | Vercel CLI, Netlify CLI, Fly.io CLI, Railway CLI, Wrangler |
+| Data and backend | Supabase CLI, Neon CLI, Prisma, Drizzle Kit, PostgreSQL client, Redis client, SQLite |
+| Cloud | AWS CLI, Google Cloud CLI, Azure CLI |
+| Ship and check | Sentry CLI, PostHog CLI, Stripe CLI |
+
+Install each agent CLI in the image. Store no token in the image. On first run, Trolley opens the system browser for sign-in. It saves each token in the host keychain. It gives the VM only the access that one run needs.
+
+Check each CLI license before you bundle it. If a license blocks bundling, download that CLI on first use. Show one clear install step. Do not hide the download.
+
+### Layer 3: Bundles, installed on first need
+
+| Bundle | Tools |
+|---|---|
+| Mobile | Flutter, Android SDK, CocoaPods tools where the OS permits them |
+| Data and ML | CUDA tools where hardware permits them, Ollama, Hugging Face CLI, PyTorch stack |
+| Java and enterprise | Maven, Gradle, .NET SDK |
+| Design and docs | Pandoc, FFmpeg, ImageMagick, Figma tools where a public CLI exists |
+
+Trolley detects the project and suggests the bundle. Show the download size first. Install the bundle as a cached layer. Show one progress bar, not a terminal task.
+
+## Image update system
+
+Push updates to the app and to the VM image on one release train.
+
+1. A weekly build job checks each preloaded tool for a new version.
+2. The job builds a new image and runs the eval set and the smoke tests on it.
+3. Sign the image with cosign. Ship an SBOM from Syft with the image.
+4. The app downloads only changed layers in the background.
+5. The new image starts at the next VM start. Keep the last good image for rollback.
+6. Agent CLIs do not self-update inside the VM. The image is the update. Each user stays on a tested set.
+7. Use two channels: Stable for most users, Beta for users who want new tools first.
+8. If a new image fails a smoke test, stop the rollout. Keep users on the last good image.
+9. Update the desktop app with the signed Tauri updater on the same release note. The user sees one update, not two.
+
+Record each image version, tool versions, and test result in the run manifest.
 
 ## Rules
 
