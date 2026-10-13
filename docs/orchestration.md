@@ -53,6 +53,8 @@ Use one writer for each file area. Use separate worktrees for parallel writers. 
 | Proof A task | Codex CLI | `gpt-6.1-sol` | medium | d11a039 (scratch repo) | Blocked: ChatGPT usage limit, retry at 6:12 PM | Claude ran the same task |
 | Proof A fallback task | Claude Code CLI | `sonnet` | medium | d11a039 (scratch repo) | Pass: one-line diff; orchestrator saw `PASS session test` | None. It was the fallback. |
 | Scaffold layout research | AGY | `gemini-3.8-flash-medium` | medium (model slug) | c29b982 | Pass: layout and ping contract used in the scaffold | None |
+| WSL setup script | AGY | `gemini-3.8-flash-medium` | medium (model slug) | ed4e72a | Blocked: write permission denied | Orchestrator wrote the files |
+| Add vm_status command | Claude Code CLI | `sonnet` | medium | c29b982 | Pass: frontend build passes. Rust still waits on the MSVC linker. | None, built as requested. It added one paragraph, one state, and one invoke as needed. |
 | Toolchain risk review | Claude Code CLI | `sonnet` | medium | c29b982 | Pass: MSVC gap and icon rule named before the build | None |
 
 ## Verification
