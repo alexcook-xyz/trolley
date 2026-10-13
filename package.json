@@ -1,0 +1,12 @@
+{
+  "name": "trolley-design-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Interactive design prototype for a local AI development workbench",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "check": "node --check assets/workbench.js && node --check scripts/serve.mjs"
+  }
+}
