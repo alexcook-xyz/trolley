@@ -1,15 +1,15 @@
 # Provider terms check
 
-Status: open. No adapter is approved by this file yet.
+Status: checked on 2026-10-13 from official sources. Terms can change. Re-check each source before you ship an adapter.
 
 Check each provider before you build its adapter. A model list does not prove account access. A working login does not prove that the terms allow a third-party client.
 
-| Provider | Source to inspect | Checked (date) | Verdict | Next action |
-|---|---|---|---|
-| Codex (ChatGPT subscription) | https://learn.chatgpt.com/docs/app-server and the ChatGPT plan integration link in `docs/product-brief.md` | Not yet | Open | Read the app-server auth rules. Confirm that a third-party desktop client can use the subscription route. |
-| Claude (Claude subscription) | https://support.claude.com/en/articles/15036540-use-the-claude-agent-sdk-with-your-claude-plan | Not yet | Open | Read the Agent SDK plan rules. Confirm the plan, limits, and client rules before you build. |
-| Antigravity | https://antigravity.google/docs/sdk/overview | Not yet | Open | Read the SDK terms. Confirm the auth route and client rules before you build. |
-| Gemini CLI | Provider docs for the Gemini CLI route | Not yet | Open | Find the official auth and client rules. Do not assume the Antigravity verdict covers this route. |
+| Provider | Source inspected | Checked | Verdict | Next action |
+|---|---|---|---|---|
+| Codex (ChatGPT subscription) | https://learn.chatgpt.com/docs/app-server ; https://developers.openai.com/siwc/token-sharing-open-source/codex-app-server | 2026-10-13 | Permitted for Proof A. Production use stays open. The app-server exists to embed Codex in your product, with ChatGPT browser sign-in and an OAuth token route for the ChatGPT plan. OpenAI marks the app-server command experimental and not supported for production workloads. | Build Proof A on this route. Re-check production support before release. |
+| Claude (Claude subscription) | https://support.claude.com/en/articles/15036540-use-the-claude-agent-sdk-with-your-claude-plan | 2026-10-13 | Permitted. The article states that the Claude Agent SDK, `claude -p`, and third-party apps can draw from subscription limits. A June 15, 2026 update pauses a planned change to this rule. | Build this adapter second. Watch the same article for the paused change. |
+| Antigravity | https://antigravity.google/docs/sdk/overview | 2026-10-13 | Open. The SDK overview shows Vertex AI with Google Cloud credentials and enterprise sign-in routes. It does not give a clear consumer subscription route for a third-party desktop app. | Build this adapter last. Confirm a consumer sign-in route, or use the enterprise and Vertex route. |
+| Gemini CLI | https://google-gemini.github.io/gemini-cli/docs/get-started/authentication.html ; https://google-gemini.github.io/gemini-cli/docs/tos-privacy.html | 2026-10-13 | Permitted to run the CLI. Bundling stays open. Login with Google opens a browser flow. AI Pro and AI Ultra users sign in with the subscription account. A free tier exists with rate limits. The docs do not by themselves grant a right to redistribute the CLI in our VM image. | Run the CLI as installed. Check the CLI license before bundling, or download it on first use. |
 
 ## Rules
 
