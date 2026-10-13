@@ -58,6 +58,19 @@ Score first in the interface too. Show proof next to each claim.
 5. Keep Ship as a user action. The gate informs the user. The gate does not ship for the user.
 6. Mark old scores stale when files change. A score belongs to one exact revision, like a diff or a check result.
 
+## OpenClaw parity in the interface
+
+Add parity features at Level 1 or Level 2. Keep the Level 0 surface simple.
+
+| Feature | Place in the interface | Rule |
+|---|---|---|
+| Channels | Connections in Settings | Connect Telegram, Slack, or Discord for status and approvals. Keep diff review in the desktop app. |
+| Automation | Automation in Settings | List each scheduled task, monitor, and digest. Show state, last run, and next run. One action pauses a task. |
+| Workspace memory | Folded detail in the conversation | Show the memory items for this project. Let the user edit or delete an item in place. |
+| Remote approvals | Channel message and desktop inbox | A phone can approve a plan, stop a run, or read a result. Show the same item in the desktop app. |
+| Browser control | Preview and Checks | Run browser tests from the preview. Show screenshots and failed steps as evidence. |
+| Voice and canvas | Composer control, later | Add voice input to the composer only after the text flow is stable. |
+
 ## Stable layout
 
 Use three columns: narrow repository and task sidebar, a wide conversation, and a right development pane. Split the right pane vertically: changed files above, persistent terminal below.

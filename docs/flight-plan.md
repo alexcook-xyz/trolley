@@ -84,6 +84,21 @@ Assign Unit 3, Step 2 to Claude `opus` for review after a first draft. Assign th
 2. Run `npm run check` in each job now. Add the VM smoke test to each job when Proof B exists.
 3. Show the final git status, the new commit, and the tag.
 
+**Unit 5: OpenClaw parity (after the proofs and the core build)**
+
+Run this unit after Proof A, Proof B, and the core task loop pass. Add one feature at a time. Keep each feature at Level 1 or Level 2.
+
+1. Gateway API: expose sessions, approvals, logs, and health from `trolley-agentd`. Pass rule: one client can start, watch, approve, and stop a task through the API.
+2. Channels: add Telegram, Slack, and Discord for status and approvals. Pass rule: a user can approve a plan from a phone and see the same state in the desktop app.
+3. Automation: add scheduled tasks, repo monitors, failed-check watchers, and a morning digest. Pass rule: one scheduled task runs on time and shows its last and next run.
+4. Workspace memory: add one memory file for each project, shown in the conversation. Pass rule: a user can edit and delete an item, and no secret is stored.
+5. Skills catalog: grow the tested list with publisher, version, permissions, and rollback. Pass rule: a user can roll back one skill version with no access change.
+6. Browser control: add Playwright runs from Preview and Checks. Pass rule: one browser test shows a screenshot and a failed step as evidence.
+7. Remote approvals and nodes (Later): add phone approve, stop, and read actions over Tailscale or a relay. Pass rule: a phone action and the desktop state agree within one sync.
+8. Voice and canvas (Later, last): add voice input to the composer and a visual canvas. Pass rule: the text flow still works with each one off.
+
+Do not add life tools (mail, calendar, personal data) in this unit.
+
 ## Validation Plan
 
 - Run `npm run check` after Units 1, 3, and 4. Expect all checks to pass.

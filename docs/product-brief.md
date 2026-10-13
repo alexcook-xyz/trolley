@@ -248,6 +248,24 @@ Simple connectors should use manifest data. Complex integrations may need review
 
 Allow startups to submit connectors without changing the desktop core. Provide an automated compatibility test kit. Update the catalog independently from the desktop release. Preserve pinned versions and rollback information.
 
+**OpenClaw parity for app development**
+
+Take OpenClaw capabilities by category. Do not copy its personal-assistant shape. Trolley stays a development product. Scope each capability as Now, Next, Later, or Never.
+
+| OpenClaw capability | Trolley scope | Rule |
+|---|---|---|
+| Gateway as control plane | Now | `trolley-agentd` is the gateway: one local API, session routing, approvals, logs, and health checks. |
+| Channels (chat apps and web) | Next | Add Telegram, Slack, and Discord for status, approvals, and new tasks. Keep code review in the desktop app. |
+| Automation (cron and always-on work) | Next | Add scheduled tasks, repo monitors, failed-check watchers, and a morning digest for each workspace. |
+| Workspace memory | Next | Add one memory file for each project. Show each item. Let the user edit or delete it. Keep secrets out. |
+| Skills and plugin ecosystem | Next | Grow the tested skill library into a catalog with publisher, version, permissions, and rollback. A skill still grants no tool access. |
+| Browser control | Next | Add Playwright browser control for app tests and previews first. General web automation comes later. |
+| Remote approvals and nodes | Later | Let a phone approve a plan, stop a run, or read a result. Use Tailscale or a relay only with clear consent. |
+| Voice and canvas | Later | Add voice control and a visual canvas last. They help control, but they do not build apps better. |
+| Life tools (mail, calendar, personal data) | Never for the first product | These tools dilute the dev focus. Add a tool only when it serves a development task. |
+
+Parity does not change the core lead: parallel coding agents, isolated forks, real tests, score-based selection, and one-click ship with rollback. OpenClaw breadth goes into that dev core.
+
 **Proposed build order**
 
 1. Prove the local Linux runtime, workspace model settings, Codex task loop, Git changes, and GitHub draft pull request workflow on Windows.
@@ -255,7 +273,9 @@ Allow startups to submit connectors without changing the desktop core. Provide a
 3. Add role templates and a small tested connector catalog across hosting, planning, databases, and observability.
 4. Add Claude and Antigravity adapters, recovery, and installer improvements.
 5. Add optional AI Gateway and Vercel Sandbox execution.
-6. Validate macOS and Linux installation, then publish the connector SDK and contribution process.
+6. Add the OpenClaw parity Next set: Channels, Automation, Workspace memory, the skills catalog, and browser control for tests.
+7. Add the Later set: Remote approvals and nodes, then voice and canvas.
+8. Validate macOS and Linux installation, then publish the connector SDK and contribution process.
 
 Exact catalog providers and release scope remain to be selected. Prefer a small tested set plus a working custom path over an untested list of integrations.
 

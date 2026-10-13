@@ -7,6 +7,6 @@
   "engines": { "node": ">=20" },
   "scripts": {
     "dev": "node scripts/serve.mjs",
-    "check": "node --check assets/workbench.js && node --check scripts/serve.mjs && node scripts/check-progressive-disclosure.mjs && node scripts/check-frontier.mjs"
+    "check": "node --check assets/workbench.js && node --check scripts/serve.mjs && node scripts/check-progressive-disclosure.mjs && node scripts/check-frontier.mjs && node scripts/check-openclaw-parity.mjs"
   }
 }
