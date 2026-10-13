@@ -6,12 +6,24 @@ Status: decided for the first build. Pin exact patch versions in lock files on d
 
 Do not start the full build yet. Run two short proofs first. Start the full build only if both proofs pass.
 
-| Proof | Pass rule |
-|---|---|
-| A: Provider proof | Sign in with a Codex subscription in the browser. Run one task in the VM. Get one diff and one test result. |
-| B: Runtime proof | Boot the same image under WSL2 on Windows. Run one sandbox task. Run the same task under libkrun when a Mac is available. |
+| Proof | Pass rule | Fail rule | Time limit |
+|---|---|---|---|
+| A: Provider proof | Sign in with a Codex subscription in the browser. Run one task in the VM. Get one diff and one test result. | Sign-in needs a manual token paste, or the task runs only with an API key. | 2 working days |
+| B: Runtime proof | Boot the same image under WSL2 on Windows. Run one sandbox task. Run the same task under libkrun when a Mac is available. | The user must install or fix a tool by hand, or the two adapters need different images. | 3 working days |
+
+If a proof hits its time limit, stop. Record the blocker in the proof file. Do not start full application code.
 
 If proof A fails, the product has no core value. If proof B fails, the product has no turnkey start. Fix the failed proof before any other work.
+
+## Budgets
+
+- Runtime image: maximum 500 MB compressed. If a tool breaks the limit, remove the tool. Do not raise the limit without a decision record.
+- Weak laptop test: 8 GB RAM, 4 CPU cores. The VM must stay usable at that level. Suspend the VM when no task runs.
+- First run: less than 5 minutes from install to the first task prompt. Measure it on the weak laptop test machine.
+
+## Data rule
+
+No code, chat, prompt, or secret leaves the computer by default. Send data only with clear, task-level consent. Show what will be sent before you send it. Keep secrets out of logs, exports, and training data.
 
 ## Exact stack
 
