@@ -1,4 +1,4 @@
-﻿id = "08-add-input-validation"
+id = "08-add-input-validation"
 title = "Add input validation"
 prompt = "Reject one invalid input with a clear error. Add one test."
 test_command = "pnpm test validation"

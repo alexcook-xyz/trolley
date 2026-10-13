@@ -1,4 +1,4 @@
-﻿id = "01-fix-session-refresh"
+id = "01-fix-session-refresh"
 title = "Fix session loss on refresh"
 prompt = "The app signs users out after a refresh. Fix it and add a regression test."
 test_command = "pnpm test session.test.ts"

@@ -1,4 +1,4 @@
-﻿id = "02-add-api-boundary-tests"
+id = "02-add-api-boundary-tests"
 title = "Add API boundary tests"
 prompt = "Add tests for missing and invalid API inputs."
 test_command = "pnpm test api"

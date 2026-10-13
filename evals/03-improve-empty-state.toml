@@ -1,4 +1,4 @@
-﻿id = "03-improve-empty-state"
+id = "03-improve-empty-state"
 title = "Improve a new-project empty state"
 prompt = "Improve the empty state for a new project. Keep the change in one screen."
 test_command = "npm test -- empty-state"

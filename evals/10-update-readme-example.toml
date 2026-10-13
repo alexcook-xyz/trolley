@@ -1,4 +1,4 @@
-﻿id = "10-update-readme-example"
+id = "10-update-readme-example"
 title = "Update a README example"
 prompt = "Make the README example match the current command. Run the example."
 test_command = "npm run check"

@@ -1,4 +1,4 @@
-﻿id = "07-fix-broken-link-check"
+id = "07-fix-broken-link-check"
 title = "Fix a broken internal link"
 prompt = "Find and fix one broken internal documentation link."
 test_command = "npm run check:links"
