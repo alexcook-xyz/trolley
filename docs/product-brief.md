@@ -259,6 +259,27 @@ Allow startups to submit connectors without changing the desktop core. Provide a
 
 Exact catalog providers and release scope remain to be selected. Prefer a small tested set plus a working custom path over an untested list of integrations.
 
+**Score first: evaluation, tournaments, and rapid ship**
+
+Score first. Build the score before the swarm. A parallel agent feature without a score creates more code for the user to read.
+
+1. Give each eval task a test that passes or fails. Do not use an opinion score in place of a test result.
+2. Record the model, agent, skills, image, and base commit for each run. Compare runs only when these facts are known.
+3. Run a tournament when the user asks for the best result. Run the same task in separate forks. Run the same tests on each fork. Show each score and name one winner.
+4. Keep the losing forks. The user can inspect a losing diff or delete it. Do not merge a losing diff by default.
+5. Improve the harness from run data. Save the task, the diff, the test result, and the final user choice. Get consent before any data leaves the computer. Keep secrets and private code out of training data by default.
+
+Make rapid ship a user feature, not a team rule. The user chooses when to ship. Trolley makes that choice safe and fast.
+
+1. Keep each task small. One task makes one clear change.
+2. Run tests during the task, not only at the end. Show the result next to the diff.
+3. Show a ship readiness gate before the user ships. The gate shows test state, score state, review state, and the rollback point.
+4. Put new work behind a feature flag when the project supports flags. The user can turn work off without a new deploy.
+5. Save a rollback point before apply, merge, or deploy. One action restores that point.
+6. Support preview, commit, push, draft pull request, merge, and deploy as separate steps. The user can stop at any step.
+
+Frontier practices to adopt now: stacked small diffs, trunk-based work in short-lived workspaces, preview environments for each workspace, policy checks that run in the trusted layer, and a command menu for every frequent action. Reject practices that add speed but remove proof.
+
 **Acceptance criteria**
 
 - On a clean supported machine, complete the standard workflow without manual JSON editing or host development-tool installation.

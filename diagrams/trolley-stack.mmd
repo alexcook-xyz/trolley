@@ -1,0 +1,23 @@
+graph TD
+  UI["React + TypeScript + Vite<br/>Trolley interface"]
+  Tauri["Tauri 2 + Rust host bridge<br/>keychain, folders, updates"]
+  Proto["gRPC + Protobuf<br/>vsock or loopback"]
+  Agentd["trolley-agentd in Rust<br/>tasks, Git, policy, scores"]
+  Providers["Provider adapters<br/>Codex, Claude, Antigravity"]
+  Eval["trolley-eval<br/>tests and scores"]
+  Sandbox["Per-task sandbox<br/>Podman, bubblewrap, worktree"]
+  Image["Debian slim OCI image<br/>signed, one for all users"]
+  Runtime["One microVM per computer<br/>WSL2, libkrun, native Linux"]
+  Host["User computer<br/>Windows, macOS, Linux"]
+  Data[("SQLite event log<br/>runs, scores, settings")]
+  UI --> Tauri
+  Tauri --> Proto
+  Proto --> Agentd
+  Agentd --> Providers
+  Agentd --> Eval
+  Agentd --> Sandbox
+  Sandbox --> Image
+  Image --> Runtime
+  Runtime --> Host
+  Tauri --> Data
+  Agentd --> Data

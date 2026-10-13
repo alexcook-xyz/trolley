@@ -39,6 +39,12 @@ State lasts for the current page session. Reloading resets preferences, chats, d
 
 - [Product brief](docs/product-brief.md): proposed architecture, isolation, models, connectors, and delivery scope.
 - [UI design brief](docs/ui-design-brief.md): interaction rules, settings, Git workflow, and validation notes.
+- [Tech stack](docs/tech-stack.md): exact build stack, runtime adapters, and the two proof gates.
+- [Flight plan](docs/flight-plan.md): ordered build plan with model assignment and fallback rules.
+- [Orchestration](docs/orchestration.md): how the orchestrator assigns work to agent CLIs.
+- [Stack diagram](diagrams/trolley-stack.png): one-page view of the stack. Source: [trolley-stack.mmd](diagrams/trolley-stack.mmd).
+
+Prototype status: frozen. Do not build the real application inside `index.html`. New application code starts in the Tauri and Rust workspace after the proof gates.
 - [Review design](docs/images/code-review-design.jpg)
 - [Plan approval](docs/images/plan-approval-design.jpg)
 - [Historical diffs](docs/images/historical-diff-design.jpg)

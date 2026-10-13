@@ -28,6 +28,36 @@ These are design inputs. The layout below is our proposal. Usability tests must 
 
 Every element must support a common action or explain a relevant state. Its label must explain its purpose. Give it one main place. Preserve user work when views change. Remove it if a simpler control serves the same purpose.
 
+## Simplicity with depth: progressive disclosure
+
+The product must be as simple to use as possible, and extremely powerful when a power user dives in. One product serves both. Do not add a Simple/Pro mode toggle; a toggle makes users learn two products and hides features in the wrong mode. Reveal power in context, in place, when it is relevant.
+
+| Level | What the user sees | Examples in this design |
+|---|---|---|
+| Level 0 · Default | Only the task, the result, the evidence, and one suggested next action. Useful defaults everywhere; no setup required to start. | Conversation, composer with task mode and Send, suggested Git action, changed-file count |
+| Level 1 · On demand | Detail one click from where the need appears. Expanding it never moves the terminal, loses a draft, or changes the reading position. | Folded tool-call activity, diff and review views, terminal expansion, Open in…, plan approval |
+| Level 2 · Power | Full control for users who go looking. Grouped, searchable, scoped, and labeled with its effective value before it is opened. | Agent instructions, model overrides and skills, Connections / MCP, environment scopes, API routes, runtime limits, Advanced diagnostics |
+
+Rules:
+
+1. The default surface shows the effective choice, not the editor. A collapsed control names its current value (for example `Run options · Backend developer · Codex`), so closing it never hides state.
+2. Every level is discoverable from the level above it. Power is never removed, only folded. Nothing powerful may exist solely behind an undocumented shortcut.
+3. Expansion is local and reversible. Closing a disclosure restores the simple surface; it does not reset values entered inside it.
+4. Frequent task choices stay near the task (Level 0–1). Occasional configuration lives in Settings (Level 2). The same control never appears at two levels.
+5. Defaults must be good enough that a new user can complete the first task without opening any Level 2 surface.
+6. Acceptance: a first-run user can send a task, read evidence, and take the suggested next action without opening a disclosure; a power user can reach any Level 2 control in at most two expansions from its Level 0 summary, by keyboard as well as pointer.
+
+## Score, tournament, and ship readiness in the interface
+
+Score first in the interface too. Show proof next to each claim.
+
+1. Show the eval score next to the test evidence in the conversation. Use this form: `Score 92 · 2 tests passed`.
+2. Show a tournament as a folded Level 1 detail in the conversation. Name the winner in the summary line. Show one score row for each agent. Keep losing diffs one click away.
+3. Do not show a score without its test. If no test ran, write `Tests not run` and show no score.
+4. Show a ship readiness gate in Review. The gate lists tests, score, review, and the rollback point. Each item shows a clear state in text.
+5. Keep Ship as a user action. The gate informs the user. The gate does not ship for the user.
+6. Mark old scores stale when files change. A score belongs to one exact revision, like a diff or a check result.
+
 ## Stable layout
 
 Use three columns: narrow repository and task sidebar, a wide conversation, and a right development pane. Split the right pane vertically: changed files above, persistent terminal below.
@@ -173,7 +203,7 @@ Keep shell shortcuts inside the focused terminal. Do not intercept terminal cont
 
 Support screen readers, clear focus indicators, system reduced motion, adjustable text, and both themes. Announce meaningful states. Do not announce every streamed token or terminal line.
 
-Use warm charcoal surfaces in dark mode and clean neutral surfaces in light mode. Use clear typography, fine separators, and restrained status colors. Keep the chat surface flat. Reserve borders and small rounded corners for controls, the composer, and forms. Use a system text font and a readable monospace font. Keep spacing consistent. Use depth to explain menus and dialogs. Avoid effects that reduce contrast.
+Use warm charcoal surfaces in dark mode and clean neutral surfaces in light mode. Use clear typography, fine separators, and restrained status colors. Keep the chat surface flat. Reserve borders and small rounded corners for controls, the composer, and forms. Use a system text font (`-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`) for UI text so startup has no web-font load. Use `"Cascadia Code", "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace` for code, diffs, filenames, and terminal output. Keep spacing consistent. Use depth to explain menus and dialogs. Avoid effects that reduce contrast.
 
 The references show a quiet repository sidebar, compact task rows, a large conversation, a bottom composer, and changed files above a terminal. These are the visual patterns to preserve. Do not copy the source app's product name, personal details, or example repository contents.
 
