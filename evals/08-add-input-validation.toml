@@ -1,0 +1,7 @@
+﻿id = "08-add-input-validation"
+title = "Add input validation"
+prompt = "Reject one invalid input with a clear error. Add one test."
+test_command = "pnpm test validation"
+pass_rule = "Test command exits 0 and the diff stays inside allowed_paths"
+allowed_paths = ["src"]
+

@@ -1,0 +1,7 @@
+﻿id = "10-update-readme-example"
+title = "Update a README example"
+prompt = "Make the README example match the current command. Run the example."
+test_command = "npm run check"
+pass_rule = "Test command exits 0 and the diff stays inside allowed_paths"
+allowed_paths = ["README.md"]
+

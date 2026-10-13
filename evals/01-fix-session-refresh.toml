@@ -1,0 +1,7 @@
+﻿id = "01-fix-session-refresh"
+title = "Fix session loss on refresh"
+prompt = "The app signs users out after a refresh. Fix it and add a regression test."
+test_command = "pnpm test session.test.ts"
+pass_rule = "Test command exits 0 and the diff stays inside allowed_paths"
+allowed_paths = ["src/auth"]
+

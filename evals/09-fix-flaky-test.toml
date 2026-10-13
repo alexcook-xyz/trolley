@@ -1,0 +1,7 @@
+﻿id = "09-fix-flaky-test"
+title = "Fix a flaky test"
+prompt = "Find the shared state in the flaky test. Remove it."
+test_command = "pnpm test --runInBand"
+pass_rule = "Test command exits 0 and the diff stays inside allowed_paths"
+allowed_paths = ["tests"]
+

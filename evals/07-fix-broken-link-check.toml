@@ -1,0 +1,7 @@
+﻿id = "07-fix-broken-link-check"
+title = "Fix a broken internal link"
+prompt = "Find and fix one broken internal documentation link."
+test_command = "npm run check:links"
+pass_rule = "Test command exits 0 and the diff stays inside allowed_paths"
+allowed_paths = ["docs"]
+

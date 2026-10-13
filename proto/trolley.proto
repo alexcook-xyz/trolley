@@ -1,0 +1,101 @@
+// Trolley protocol, version 1. Freeze this version.
+// Change version 1 only with a new proto file and a decision record.
+syntax = "proto3";
+
+package trolley.v1;
+
+// The trusted host bridge talks to trolley-agentd with this contract.
+// The interface never talks to a task sandbox in a direct way.
+
+service Trolley {
+  rpc StartTask(StartTaskRequest) returns (StartTaskResponse);
+  rpc SendInput(SendInputRequest) returns (SendInputResponse);
+  rpc CancelTask(CancelTaskRequest) returns (CancelTaskResponse);
+  rpc GetRun(GetRunRequest) returns (Run);
+  rpc StreamEvents(StreamEventsRequest) returns (stream Event);
+  rpc ScoreRun(ScoreRunRequest) returns (Score);
+}
+
+message StartTaskRequest {
+  string workspace_id = 1;
+  string chat_id = 2;
+  string prompt = 3;
+  string agent_profile_id = 4;
+  string base_commit = 5;
+  // Scope names only. The server checks each name against a fixed list.
+  // Secrets never travel in this message. The user can paste a secret into
+  // the prompt, so the server redacts before it stores or forwards text.
+  repeated string granted_scopes = 6;
+  // The client makes this key once for each start action. A retry with the
+  // same key returns the same run and does not start a second run.
+  string client_request_id = 7;
+}
+
+message SendInputRequest {
+  string run_id = 1;
+  string text = 2;
+}
+
+message SendInputResponse {
+  bool accepted = 1;
+}
+
+message StartTaskResponse {
+  string run_id = 1;
+}
+
+message CancelTaskRequest {
+  string run_id = 1;
+}
+
+message CancelTaskResponse {
+  bool accepted = 1;
+}
+
+message GetRunRequest {
+  string run_id = 1;
+}
+
+message StreamEventsRequest {
+  string run_id = 1;
+  // Send events after this sequence number. Use 0 to get all events.
+  int64 resume_after_seq = 2;
+}
+
+message ScoreRunRequest {
+  string run_id = 1;
+  string eval_task_id = 2;
+}
+
+message Run {
+  string run_id = 1;
+  string workspace_id = 2;
+  string state = 3; // queued, running, needs_input, ready_to_review, failed, stopped
+  string provider = 4;
+  string model_id = 5;
+  string skill_versions = 6;
+  string base_commit = 7;
+  string head_commit = 8;
+  // Empty unless state is failed. The server redacts this text.
+  string failure_reason = 9;
+}
+
+message Event {
+  string run_id = 1;
+  string kind = 2; // progress, needs_input, result, failure
+  // Agent and tool text can hold secrets. The server redacts this field
+  // before any client sees it. Redaction is a backup, not the main control.
+  string text = 3;
+  int64 at_unix_ms = 4;
+  // First event is 1. The number grows by 1 for each event in the run.
+  int64 seq = 5;
+}
+
+message Score {
+  string run_id = 1;
+  string eval_task_id = 2;
+  bool tests_ran = 3;
+  bool tests_passed = 4;
+  int32 score = 5; // Range: 0 to 100. Show no score when tests_ran is false.
+  string revision = 6; // exact commit the score belongs to
+}

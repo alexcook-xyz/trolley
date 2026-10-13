@@ -47,6 +47,7 @@ Use one writer for each file area. Use separate worktrees for parallel writers. 
 |---|---|---|---|---|---|---|
 | Write this doc | AGY | `gemini-3.8-flash-medium` | medium (model slug) | 485f9f6 | Blocked: write permission denied | Orchestrator wrote the doc |
 | Review threat model | Claude Code CLI | `sonnet` | medium | b5e1ecf | Pass: 4 high findings, all fixed in the threat model | None |
+| Review proto contract | Claude Code CLI | `opus` | high | 8371669 | Pass: 6 gaps found; resume point, input reply, failure reason, and tests-ran flag added | None |
 
 ## Verification
 

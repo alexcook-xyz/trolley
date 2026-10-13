@@ -1,0 +1,7 @@
+﻿id = "02-add-api-boundary-tests"
+title = "Add API boundary tests"
+prompt = "Add tests for missing and invalid API inputs."
+test_command = "pnpm test api"
+pass_rule = "Test command exits 0 and the diff stays inside allowed_paths"
+allowed_paths = ["tests/api"]
+

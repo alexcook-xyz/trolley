@@ -1,0 +1,7 @@
+﻿id = "05-add-regression-test"
+title = "Add a regression test for a fixed bug"
+prompt = "Write a test that fails on the old code and passes on the fixed code."
+test_command = "pnpm test regression"
+pass_rule = "Test command exits 0 and the diff stays inside allowed_paths"
+allowed_paths = ["tests"]
+

@@ -1,0 +1,7 @@
+﻿id = "06-extract-small-function"
+title = "Extract one small function"
+prompt = "Extract one repeated block into a named function. Keep behavior the same."
+test_command = "pnpm test"
+pass_rule = "Test command exits 0 and the diff stays inside allowed_paths"
+allowed_paths = ["src"]
+

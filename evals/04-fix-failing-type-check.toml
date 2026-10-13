@@ -1,0 +1,7 @@
+﻿id = "04-fix-failing-type-check"
+title = "Fix a failing type check"
+prompt = "Fix the reported type error. Do not change runtime behavior."
+test_command = "pnpm run typecheck"
+pass_rule = "Test command exits 0 and the diff stays inside allowed_paths"
+allowed_paths = ["src"]
+
